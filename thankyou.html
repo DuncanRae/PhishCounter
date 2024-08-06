@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .message-container {
+            width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            text-align: center;
+        }
+        .message-container h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        .message-container p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="thankyou-container">
+        <h1>Thank you, you've been entered into today's prize draw!</h1>
+    </div>
+
+    <script>
+        async function incrementCounter() {
+            try {
+                const response = await fetch('increment.php', {
+                    method: 'GET',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                console.log('Response Status:', response.status);
+                console.log('Response Headers:', response.headers);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log('Counter:', data.counter);
+            } catch (error) {
+                console.error('Error incrementing counter:', error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", incrementCounter);
+    </script>
+</body>
+</html>
