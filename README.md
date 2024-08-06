@@ -129,7 +129,7 @@ Certbot takes care of auto-renewal, but it’s a good idea to test it.
 sudo certbot renew --dry-run
 ```
 
-## (Optional) Automatic DNS Record Update
+## (Optional) Automatic DNS Record Update (having issues)
 
 This section enables the server to automatically update the public DNS record at CloudFlare each time the server starts in case it gets a new public IP address.
 
@@ -138,6 +138,14 @@ This section enables the server to automatically update the public DNS record at
 	1.	Log in to your CloudFlare account.
 	2.	Navigate to “My Profile” -> “API Tokens”.
 	3.	Create a new token with “Edit DNS Zone” permissions for the relevant zone.
+
+You'll need the Zone ID and the Record ID for this record. You can find the Zone ID when you create the API key. Type in this command in a terminal window with your Zone ID and API Token and it will show you the records in the Zone and list the Record ID. 
+
+```bash
+curl -X GET "https://api.cloudflare.com/client/v4/zones/ZONEID/dns_records" \
+     -H "Authorization: Bearer APITOKEN" \
+     -H "Content-Type:application/json"
+```
 
 ### 10. Install Required Packages
 
@@ -195,7 +203,7 @@ Press Control-O to save, then Control-X to quit.
 ### 12. Make the script executable
 
 ```bash
-chmod +x update_dns.sh
+sudo chmod +x update_dns.sh
 ```
 ### 13. Run the Script at Startup
 
@@ -218,6 +226,8 @@ ExecStart=/path/to/update_dns.sh
 [Install]
 WantedBy=multi-user.target
 ```
+Control-O to save, Control-X to quit.
+
 Reload the systemd daemon to recognize the new service:
 ```bash
 sudo systemctl daemon-reload
