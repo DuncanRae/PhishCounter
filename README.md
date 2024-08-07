@@ -129,7 +129,7 @@ Certbot takes care of auto-renewal, but it’s a good idea to test it.
 sudo certbot renew --dry-run
 ```
 
-## (Optional) Automatic DNS Record Update (having issues)
+## (Optional) Automatic DNS Record Update
 
 This section enables the server to automatically update the public DNS record at CloudFlare each time the server starts in case it gets a new public IP address.
 
