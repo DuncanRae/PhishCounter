@@ -26,7 +26,7 @@ This setup requires an Ubuntu Linux instance to host the Apache server and the p
 ## Prerequisites
 
 - A domain name you can create a record in that points to this server.
-- A server running Ubuntu.
+- A server running Ubuntu with a public IP address.
 - Basic knowledge of terminal commands.
 
 ## Steps
