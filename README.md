@@ -1,7 +1,7 @@
 
 # PhishCounter
 
-A quick and simple Phishing Simulation for use in demos and awareness training that only counts the number of people eho enter credentials, but does not collect any other information.
+A quick and simple Phishing Simulation for use in demos and Security Awareness Training (SAT) that only counts the number of people who enter credentials, but does not collect any other information.
 
 I've struggled to find a quick and easy phishing simulation tool that just puts a page up that is easy to access for a simple QR code demo or a simple targeted simulation. Other tools like ZPhisher or BlackEye are simple to set up, but don't allow easy access to the pages. They also use CloudFlare tunnels or NGROK, both of which don't work very reliably due to protections they have in place to prevent them from being used for potentially malicious purposes. 
 
