@@ -11,6 +11,8 @@ I use a .xyz domain ($1 per year), DNS hosted at CloudFlare and a small Ubuntu i
 
 Point the "victims" to https://secure-login.YOURDOMAIN.zyx/index.html to see the login page. Once they enter credentials they are sent to the https://secure-login.YOURDOMAIN.zyx/thankyou.html page which tells them "Thanks, you are now entered into today's prize draw" but you can change this to whatever suits your pretence. 
 
+If you do want to collect the email addresses of people who have filled in credentials, ensure you use the Google or Microsoft labeled index.html files with the save-email in the name. This will write all email addresses to a text file called emails.txt.
+
 Access the https://secure-login.YOURDOMAIN.zyx/counter.html to see how many people have entered credentials (counted by how many times the ThankYou page has been loaded) or to reset the counter for the next demo. 
 
 Please use this if it helps you educate your users around the dangers of phishing and Social Engineering. Obviously, only use it for education and never any malicious purposes. 
@@ -60,7 +62,9 @@ sudo apt install php libapache2-mod-php
 
 ### 4. Place the HTML and PHP files into the web directory
 
-Go onto the /var/www/html/ direcroty and use "sudo nano filename.html" to create the files. Paste the contents of the files forom this page into nano. Control-O saves, then Control-X quits. 
+Go onto the /var/www/html/ direcroty and use "sudo nano filename.html" to create the files. Paste the contents of the files from this page into nano. Control-O saves, then Control-X quits. 
+
+You can also download the files or clone the repo if that is easier for you. 
 
 The index-google.html file is set up to look like the Google page. There is a index-microsoft.html file which you can use if you are working in a Microsoft environment. Choose the appropriate one and copy it's contents to index.html on the server.
 
@@ -73,7 +77,11 @@ Set the correct permission on the counter.txt file so the php script can update 
 sudo chown www-data:www-data counter.txt
 sudo chmod 664 counter.txt
 ```
-
+Create and set permissions on the email.txt file.
+```bash
+sudo touch /var/www/html/emails.txt
+sudo chmod 666 /var/www/html/emails.txt
+```
 
 ### 5. Configure Apache to Serve Your PHP Site
 
