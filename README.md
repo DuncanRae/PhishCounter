@@ -1,9 +1,9 @@
 
 # PhishCounter
 
-A quick and simple Phishing Simulation for use in demos and Security Awareness Training (SAT) that only counts the number of people who enter credentials, but does not collect any other information.
+A quick and simple Phishing Simulation for use in demos and Security Awareness Training (SAT) that  counts the number of people who enter credentials, but does not collect any other information. I've added the functionality to collect the email addresses if you wish (for additiponal training enrolment purposes), but generally just being able to show that 50 people out of the 100 you are speaking to fell for whatever social engineering test you're doing is good enough to make the point. 
 
-I've struggled to find a quick and easy phishing simulation tool that just puts a page up that is easy to access for a simple QR code demo or a simple targeted simulation. Other tools like ZPhisher or BlackEye are simple to set up, but don't allow easy access to the pages from outside and run in the user context, so your session needs to be connected and running (I'm sure this is fixable, but I've never really tried). They also use CloudFlare tunnels or NGROK, both of which don't work very reliably due to protections they have in place to prevent them from being used for potentially malicious purposes and the performance can be bad. 
+I've struggled to find a quick and easy phishing simulation tool that just puts a page up that is easy to access for a simple QR code demo or a simple targeted simulation. Other tools like ZPhisher or BlackEye are simple to set up, but don't allow easy access to the pages from outside and run in the user context, so your session needs to be connected and running (I'm sure this is fixable, but I've never really tried). They also use CloudFlare tunnels or NGROK, both of which don't work very reliably due to protections they have in place to prevent them from being used for potentially malicious purposes and the performance can be bad. Tools like GoPhish and other Phishing Simulation tools are really geared towards email phishing and don't really allow you to use other forms such as QR codes. 
 
 I built this one with the help of GPT 4o to simulate a simple page (either Google or Microsoft) that can be hosted on a small Linux server with a public IP address.
 
