@@ -3,15 +3,15 @@
 
 A quick and simple Phishing Simulation for use in demos and Security Awareness Training (SAT) that only counts the number of people who enter credentials, but does not collect any other information.
 
-I've struggled to find a quick and easy phishing simulation tool that just puts a page up that is easy to access for a simple QR code demo or a simple targeted simulation. Other tools like ZPhisher or BlackEye are simple to set up, but don't allow easy access to the pages. They also use CloudFlare tunnels or NGROK, both of which don't work very reliably due to protections they have in place to prevent them from being used for potentially malicious purposes. 
+I've struggled to find a quick and easy phishing simulation tool that just puts a page up that is easy to access for a simple QR code demo or a simple targeted simulation. Other tools like ZPhisher or BlackEye are simple to set up, but don't allow easy access to the pages from outside and run in the user context, so your session needs to be connected and running (I'm sure this is fixable, but I've never really tried). They also use CloudFlare tunnels or NGROK, both of which don't work very reliably due to protections they have in place to prevent them from being used for potentially malicious purposes and the performance can be bad. 
 
-I built this one with the help of GPT 4o to simulate a simple page (either Google or Microsoft) that can be hosted on a small Linux server. 
+I built this one with the help of GPT 4o to simulate a simple page (either Google or Microsoft) that can be hosted on a small Linux server with a public IP address.
 
-I use a .xyz domain ($1 per year), DNS hosted at CloudFlare and a small Ubuntu instance at AWS. I have included a script that can update the DNS record at CloudFlare each time ther server starts so no permanent Elastic IP is required which would add cost. 
+I use a .xyz domain ($1 per year), DNS hosted at CloudFlare and a small Free Tier Ubuntu instance at AWS. I have included a script that can update the DNS record at CloudFlare each time the server starts so no permanent Elastic IP is required which would add cost.
 
 Point the "victims" to https://secure-login.YOURDOMAIN.zyx/index.html to see the login page. Once they enter credentials they are sent to the https://secure-login.YOURDOMAIN.zyx/thankyou.html page which tells them "Thanks, you are now entered into today's prize draw" but you can change this to whatever suits your pretence. 
 
-If you do want to collect the email addresses of people who have filled in credentials, ensure you use the Google or Microsoft labeled index.html files with the save-email in the name. This will write all email addresses to a text file called emails.txt.
+If you do want to collect the email addresses of people who have filled in credentials, ensure you use the Google or Microsoft labeled index.html files with the save-email in the name. This will write all email addresses to a text file called emails.txt. Be kind, don't name and shame!
 
 Access the https://secure-login.YOURDOMAIN.zyx/counter.html to see how many people have entered credentials (counted by how many times the ThankYou page has been loaded) or to reset the counter for the next demo. 
 
@@ -21,11 +21,11 @@ Please use this if it helps you educate your users around the dangers of phishin
 
 ## Setup and Installation
 
-This setup requires a Ubuntu Linux server to host the APache server and the pages needed. This tutorial won't cover the setup of the server itself, but assumes the server us up and running and had ports 80 and 443 exposed to the internet. The config all happens via SSH.
+This setup requires an Ubuntu Linux instance to host the Apache server and the pages needed. This tutorial won't cover the setup of the server itself, but assumes the server is up and running and has ports 80 and 443 exposed to the internet. The config all happens via SSH.
 
 ## Prerequisites
 
-- A domain name pointed to your server.
+- A domain name you can create a record in that points to this server.
 - A server running Ubuntu.
 - Basic knowledge of terminal commands.
 
@@ -62,11 +62,11 @@ sudo apt install php libapache2-mod-php
 
 ### 4. Place the HTML and PHP files into the web directory
 
-Go onto the /var/www/html/ direcrory and download the files or clone the repo. You can also use "sudo nano filename.html" to create the files. Paste the contents of the files from this page into nano. Control-O saves, then Control-X quits. 
+Go onto the /var/www/html/ directory and download the files or clone the repo. You can also use "sudo nano filename.html" to create the files. Paste the contents of the files from this page into Nano. Control-O saves, then Control-X quits. 
 
-The index-google.html file is set up to look like the Google page. There is a index-microsoft.html file which you can use if you are working in a Microsoft environment. Choose the appropriate one and copy it's contents to index.html on the server.
+The index-google.html file is set up to look like the Google page. There is an index-microsoft.html file which you can use if you are working in a Microsoft environment. Choose the appropriate one and copy the contents to index.html on the server.
 
-Make sure you don't leave the Google or Microsoft description in the file names. This may cause Chrome to flag this as a potential phishing site. (We wouldn't want that!) I fine it best to choose which one to use and call it just index.html.
+Make sure you don't leave the Google or Microsoft description in the file names. This may cause Chrome to flag this as a potential phishing site. (We wouldn't want that!) I find it best to choose which one to use and call it just index.html.
 
 Create the counter.txt file.
 ```bash
@@ -116,18 +116,18 @@ sudo systemctl restart apache2
 ```
 ### 6. Create the public DNS record
 
-Log into your DNS provider and create an A record for the URL you're going to use. eg. secure-logon-page.12345678.xyz pointing to the public IP address of your instance. 
+Log into your DNS provider and create an A record for the URL you're going to use. eg. secure-logon-page.12345678.xyz pointing to the current public IP address of your instance. If this isn't corrent, the next step will throw an error as Let's Encrypt won't be able to connect to your site. 
 
 ### 7. Obtain an SSL Certificate from Let’s Encrypt
 
 Run Certbot to obtain and install an SSL certificate. Replace your_domain with your actual domain name.
 
 ```bash
-sudo certbot --apache -d host.your_domain
+sudo certbot --apache -d host.your_domain.xyz
 ```
 Follow the prompts to complete the certificate installation. Certbot will automatically configure Apache to use the SSL certificate.
 
-After Certbot finishes, your site should be accessible via HTTPS. Open your web browser and go to https://host.your_domain. You should see the PHP page served securely over HTTPS.
+After Certbot finishes, your site should be accessible via HTTPS. Open your web browser and go to https://host.your_domain.xyz. You should see the PHP page served securely over HTTPS.
 
 ### 8. Auto-renewal of Certificates
 
@@ -165,7 +165,7 @@ Create a script that will retrieve the server’s public IP address and update t
 ```bash
 sudo nano update_dns.sh
 ```
-Paste the following into the Nano window and update it with your DNS Zone and API token:
+Paste the following into the Nano window and update it with your DNS Zone details and API token:
 
 ```sh
 #!/bin/bash
