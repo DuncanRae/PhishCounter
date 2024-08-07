@@ -168,35 +168,25 @@ Paste the following into the Nano window and update it with your DNS Zone and AP
 ```sh
 #!/bin/bash
 
-# CloudFlare API token
-CF_API_TOKEN="YOUR_API_TOKEN"
-
-# CloudFlare zone identifier and record identifier
-CF_ZONE_ID="YOUR_ZONE_ID"
-CF_RECORD_ID="YOUR_RECORD_ID"
-
-# The domain and subdomain you want to update
-DOMAIN="yourdomain.com"
-SUBDOMAIN="subdomain"
+# CloudFlare configuration
+AUTH_KEY="YOURAPIKEY"
+ZONE_ID="YOURZONEID"
+RECORD_NAME="YOURDNSNAME.12345678.xyz"
+RECORD_TYPE="A"
 
 # Get the current public IP address
 IP=$(curl -s http://ipv4.icanhazip.com)
 
-# Fetch the current DNS record
-DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records/${CF_RECORD_ID}" \
-  -H "Authorization: Bearer ${CF_API_TOKEN}" \
-  -H "Content-Type: application/json")
+# Get the DNS record ID
+RECORD_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$RECORD_TYPE&name=$RECORD_NAME" \
+     -H "Authorization: Bearer $AUTH_KEY" \
+     -H "Content-Type: application/json" | jq -r '.result[0].id')
 
-# Extract the current IP address from the DNS record
-CURRENT_IP=$(echo $DNS_RECORD | jq -r '.result.content')
-
-# Update the DNS record if the IP address has changed
-if [ "$IP" != "$CURRENT_IP" ]; then
-  curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records/${CF_RECORD_ID}" \
-    -H "Authorization: Bearer ${CF_API_TOKEN}" \
-    -H "Content-Type: application/json" \
-    --data '{"type":"A","name":"'"$SUBDOMAIN.$DOMAIN"'","content":"'"$IP"'","ttl":120,"proxied":false}'
-fi
+# Update the DNS record
+curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
+     -H "Authorization: Bearer $AUTH_KEY" \
+     -H "Content-Type: application/json" \
+     --data "{\"type\":\"$RECORD_TYPE\",\"name\":\"$RECORD_NAME\",\"content\":\"$IP\"}"
 ```
 Press Control-O to save, then Control-X to quit.
 
