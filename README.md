@@ -62,11 +62,11 @@ sudo apt install php libapache2-mod-php
 
 ### 4. Place the HTML and PHP files into the web directory
 
-Go onto the /var/www/html/ direcroty and use "sudo nano filename.html" to create the files. Paste the contents of the files from this page into nano. Control-O saves, then Control-X quits. 
-
-You can also download the files or clone the repo if that is easier for you. 
+Go onto the /var/www/html/ direcrory and download the files or clone the repo. You can also use "sudo nano filename.html" to create the files. Paste the contents of the files from this page into nano. Control-O saves, then Control-X quits. 
 
 The index-google.html file is set up to look like the Google page. There is a index-microsoft.html file which you can use if you are working in a Microsoft environment. Choose the appropriate one and copy it's contents to index.html on the server.
+
+Make sure you don't leave the Google or Microsoft description in the file names. This may cause Chrome to flag this as a potential phishing site. (We wouldn't want that!) I fine it best to choose which one to use and call it just index.html.
 
 Create the counter.txt file.
 ```bash
