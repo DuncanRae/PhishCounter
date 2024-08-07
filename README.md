@@ -139,13 +139,7 @@ This section enables the server to automatically update the public DNS record at
 	2.	Navigate to “My Profile” -> “API Tokens”.
 	3.	Create a new token with “Edit DNS Zone” permissions for the relevant zone.
 
-You'll need the Zone ID and the Record ID for this record. You can find the Zone ID when you create the API key. Type in this command in a terminal window with your Zone ID and API Token and it will show you the records in the Zone and list the Record ID. 
-
-```bash
-curl -X GET "https://api.cloudflare.com/client/v4/zones/ZONEID/dns_records" \
-     -H "Authorization: Bearer APITOKEN" \
-     -H "Content-Type:application/json"
-```
+You'll need the Zone ID this zone. You can find the Zone ID when you create the API key.
 
 ### 10. Install Required Packages
 
@@ -211,7 +205,7 @@ Add the following content to the service file:
 Description=Update CloudFlare DNS record with public IP address
 
 [Service]
-ExecStart=/path/to/update_dns.sh
+ExecStart=/var/www/html/update_dns.sh
 
 [Install]
 WantedBy=multi-user.target
