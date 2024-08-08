@@ -116,7 +116,7 @@ sudo systemctl restart apache2
 ```
 ### 6. Create the public DNS record
 
-Log into your DNS provider and create an A record for the URL you're going to use. eg. secure-logon-page.12345678.xyz pointing to the current public IP address of your instance. If this isn't corrent, the next step will throw an error as Let's Encrypt won't be able to connect to your site. 
+Log into your DNS provider and create an A record for the URL you're going to use. eg. secure-logon-page.12345678.xyz pointing to the current public IP address of your instance. If this isn't correct, the next step will throw an error as Let's Encrypt won't be able to connect to your site. 
 
 ### 7. Obtain an SSL Certificate from Let’s Encrypt
 
