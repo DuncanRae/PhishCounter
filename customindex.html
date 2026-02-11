@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            margin: 0;
+        }
+        .login-container {
+            width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .logo-container {
+            width: 120px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+        .login-container h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        .login-container p {
+            font-size: 14px;
+            margin-bottom: 30px;
+            color: #718096;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #4a5568;
+        }
+        .login-container input {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        .login-container input:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        .login-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+        .login-container a {
+            display: block;
+            margin: 15px 0;
+            color: #4facfe;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+        .footer a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        .footer a:hover {
+            color: #4facfe;
+        }
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #c53030;
+            background-color: #fff5f5;
+            border: 1px solid #feb2b2;
+            display: none;
+        }
+        .security-badge {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .security-badge svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+            fill: #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Company Logo">
+        </div>
+        <h1>Employee Access Portal</h1>
+        <p>To validate that you are a valid staff member, please login.</p>
+        <p>Sign in to access your account</p>
+        
+        <div class="input-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="your.name@company.com" autocomplete="email">
+        </div>
+        
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+        </div>
+        
+        <button onclick="redirectToThankYou()">Sign In</button>
+        
+        <a href="#">Forgot your password?</a>
+        
+        <div class="security-badge">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            </svg>
+            Secured with SSL encryption
+        </div>
+        
+        <div class="message" id="message"></div>
+        
+        <div class="footer">
+            <a href="#">Help</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+
+    <script>
+        function redirectToThankYou() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let messageEl = document.getElementById('message');
+
+            if (email && password) {
+                window.location.href = "thankyou.html";
+            } else {
+                messageEl.textContent = 'Please enter both email and password.';
+                messageEl.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
